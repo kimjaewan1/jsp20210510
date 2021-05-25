@@ -1,57 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="java.util.*" %>
-
-<% request.setCharacterEncoding("utf-8"); %>
-
-<!DOCTYPE html>
-<html>
-<head>
-
-<%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-
-<title>Insert title here</title>
-</head>
-<body>
-<div class="container">
-	<h1>and</h1>
-	\${true && true } : ${true && true } <br>
-	\${true && false } : ${true && false } <br>
-	\${false && true } : ${false && true } <br>
-	\${false && false } : ${false && false } <br>
-	
-	<hr>
-	
-	\${true and true } : ${true and true } <br>
-	\${true and false } : ${true and false } <br>
-	\${false and true } : ${false and true } <br>
-	\${false and false } : ${false and false } <br>
-	
-	<h1>OR</h1>
-	\${true || true } : ${true || true } <br>
-	\${true || false } : ${true || false } <br>
-	\${false || true } : ${false || true } <br>
-	\${false || false } : ${false || false } <br>
-	<hr>
-	\${true or true } : ${true or true } <br>
-	\${true or false } : ${true or false } <br>
-	\${false or true } : ${false or true } <br>
-	\${false or false } : ${false or false } <br>
-	
-	<h1>not</h1>
-	\${! true } : ${! true } <br>
-	\${! false } : ${! false } <br>
-	<hr>
-	\${not true } : ${not true } <br>
-	\${not false } : ${not false } <br>
-</div>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
