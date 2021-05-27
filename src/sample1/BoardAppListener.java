@@ -29,7 +29,7 @@ public class BoardAppListener implements ServletContextListener {
          // TODO Auto-generated method stub
     }
 
-	/** 
+	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
