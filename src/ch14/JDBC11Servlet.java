@@ -52,7 +52,7 @@ public class JDBC11Servlet extends HttpServlet {
 				"FROM Employees " + 
 				"WHERE EmployeeID = " + id;
 
-		String url = "jdbc:mysql://13.125.118.27/test"; // 본인 ip
+		String url = "jdbc:mysql://13.209.83.171/test"; // 본인 ip
 		String user = "root";
 		String password = "wnddkdwjdqhcjfl1";
 

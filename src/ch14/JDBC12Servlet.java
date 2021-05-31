@@ -52,7 +52,7 @@ public class JDBC12Servlet extends HttpServlet {
 		String sql = "SELECT EmployeeID, LastName, FirstName, Notes " + 
 				"FROM Employees ";
 
-		String url = "jdbc:mysql://13.125.118.27/test"; // 본인 ip
+		String url = "jdbc:mysql://13.209.83.171/test"; // 본인 ip
 		String user = "root";
 		String password = "wnddkdwjdqhcjfl1";
 
