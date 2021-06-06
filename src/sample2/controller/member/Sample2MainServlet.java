@@ -1,4 +1,4 @@
-package sample2.member;
+package sample2.controller.member;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

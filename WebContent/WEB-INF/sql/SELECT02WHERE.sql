@@ -74,8 +74,9 @@ WHERE CustomerID = 32;
 SELECT * FROM Customers
 WHERE Country = 'Germany' AND City = 'Berlin';
 
+-- OR
 SELECT * FROM Customers
-WHERE City = 'Berlin' OR City = 'Munchen';
+WHERE City = 'Berlin' OR City = 'München';
 
 SELECT * FROM Customers
 WHERE Country = 'Germany' OR 
@@ -87,11 +88,12 @@ WHERE Country='Germany' AND (City='Berlin' OR City='München');
 SELECT * FROM Customers
 WHERE NOT Country='Germany' AND NOT Country='USA';
 
+
 SELECT
  * FROM Customers
 WHERE
  City = 'Berlin'
-AND
+AND 
 PostalCode
  = 12209;
 
@@ -100,6 +102,3 @@ SELECT
  * FROM Customers
 WHERE
  City = 'Berlin' OR City = 'London';
-
-
-	

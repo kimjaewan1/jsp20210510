@@ -15,28 +15,31 @@
 <body>
 <s2:navbar></s2:navbar>
 <div class="container">
+	<h1>글 목록</h1>
+	
 	<table class="table">
 		<thead>
 			<tr>
 				<th>#</th>
-				<th>ID</th>
-				<th>PW</th>
-				<th>NAME</th>
-				<th>BIRTH</th>
-				<th>INSERTED</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성시간</th>
 			</tr>
 		</thead>
+	
 		<tbody>
-			<c:forEach items="${members }" var="member" varStatus="status">
+			<c:forEach items="${boards }" var="board">
 				<tr>
-					<td>${status.count }</td>
-					<td>${member.id }</td>
-					<td>${member.password }</td>
-					<td>${member.name }</td>
-					<td>${member.birth }</td>
-					<td>${member.inserted }</td>
+					<td>${board.id }</td>
+					<td>
+						<a href="<%= request.getContextPath() %>/sample2/board/detail?id=${board.id}">
+							${board.title }
+						</a>
+					</td>
+					<td>${board.memberIdHidden }</td>
+					<td>${board.timeAgo }</td>
 				</tr>
-			</c:forEach>		
+			</c:forEach>
 		</tbody>
 	</table>
 </div>
