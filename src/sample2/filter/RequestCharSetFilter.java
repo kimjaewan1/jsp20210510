@@ -1,256 +1,50 @@
-package sample2.dao;
+package sample2.filter;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 
-import sample2.bean.Member;
+/**
+ * Servlet Filter implementation class RequestCharSetFilter
+ */
+//@WebFilter("/RequestCharSetFilter")
+public class RequestCharSetFilter implements Filter {
 
-public class MemberDao {
-	private String url;
-	private String user;
-	private String password;
-	
-	public MemberDao() {
-		this.url = "jdbc:mysql://13.209.83.171/test2";
-		this.user = "root";
-		this.password = "wnddkdwjdqhcjfl1";
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+    /**
+     * Default constructor. 
+     */
+    public RequestCharSetFilter() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see Filter#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
 	}
 
-	public boolean insert(Member member) {
-		String sql = "INSERT INTO Member "
-				+ "(id, password, name, birth, inserted) "
-				+ "VALUES "
-				+ "(?, ?, ?, ?, NOW()) ";
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-
-			con = DriverManager.getConnection(url, user, password);
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPassword());
-			pstmt.setString(3, member.getName());
-			pstmt.setDate(4, member.getBirth());
-			
-			int cnt = pstmt.executeUpdate();
-			
-			if (cnt == 1) {
-				return true;
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return false;
+	/**
+	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 */
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		// place your code here
+		request.setCharacterEncoding("utf-8");
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
 	}
 
-	public List<Member> list() {
-		List<Member> list = new ArrayList<>();
-		
-		String sql = "SELECT id, password, name, birth, inserted "
-				+ "FROM Member";
-		
-		try (
-			Connection con = DriverManager.getConnection(url, user, password);
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-				) {
-			
-			while (rs.next()) {
-				Member member = new Member();
-				member.setId(rs.getString(1));
-				member.setPassword(rs.getString(2));
-				member.setName(rs.getString(3));
-				member.setBirth(rs.getDate(4));
-				member.setInserted(rs.getTimestamp(5));
-				
-				list.add(member);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return list;
+	/**
+	 * @see Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		// TODO Auto-generated method stub
 	}
 
-	public Member getMember(String id) {
-		String sql = "SELECT id, password, name, birth, inserted "
-				+ "FROM Member "
-				+ "WHERE id = ?";
-		
-		ResultSet rs = null;
-		try (
-			Connection con = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = con.prepareStatement(sql);
-				) {
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				Member member = new Member();
-				member.setId(rs.getString(1));
-				member.setPassword(rs.getString(2));
-				member.setName(rs.getString(3));
-				member.setBirth(rs.getDate(4));
-				member.setInserted(rs.getTimestamp(5));
-				
-				return member;
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return null;
-	}
-
-	public boolean update(Member member) {
-		String sql = "UPDATE Member "
-				+ "SET password = ?, "
-				+ "    name = ?, "
-				+ "    birth = ? "
-				+ "WHERE id = ? ";
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-
-			con = DriverManager.getConnection(url, user, password);
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, member.getPassword());
-			pstmt.setString(2, member.getName());
-			pstmt.setDate(3, member.getBirth());
-			pstmt.setString(4, member.getId());
-			
-			int cnt = pstmt.executeUpdate();
-			
-			if (cnt > 0) {
-				return true;
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return false;
-	}
-
-	public void remove(String id) {
-
-		String sql = "DELETE FROM Member WHERE id = ?";
-		
-		try (
-			Connection con = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = con.prepareStatement(sql);
-				) {
-			
-			pstmt.setString(1, id);
-			pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public boolean existsId(String id) {
-		String sql = "SELECT id FROM Member WHERE id = ?";
-		
-		ResultSet rs = null;
-		try (
-			Connection con = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = con.prepareStatement(sql);
-				) {
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		return false;
-	}
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

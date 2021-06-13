@@ -50,11 +50,13 @@
 		<input type="submit" id="submit1" value="전송" hidden>
 	</form>
 	
-	<c:if test="${not empty message }">
-		<div>
-			${message }
-		</div>
-	</c:if>
+	<s2:message></s2:message>
+</div>
+
+<div>
+작성한 게시물 : <span>${member.numberOfBoard }</span>개
+<br>
+작성한 댓글 : <span>${member.numberOfComment }</span>개
 </div>
 
 <div class="container">
